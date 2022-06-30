@@ -6,11 +6,15 @@ namespace FineCodeCoverageSpikeLibrary {
 
     public class Calculator: ICalculator
     {
-        public Calculator() { 
+        IResult _result;
+
+        public Calculator(IResult result) { 
+            _result = result;
         }
 
         public int Add(int Value) {
-            throw new NotImplementedException();
+            _result.Result = _result.Result + Value;
+            return _result.Result;
         }
 
         public int Div(int Value) {
