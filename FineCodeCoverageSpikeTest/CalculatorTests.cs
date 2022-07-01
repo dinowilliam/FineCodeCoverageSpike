@@ -200,5 +200,34 @@ namespace FineCodeCoverageSpikeTest {
             //Assert
             Assert.AreEqual(mockResultObject.Result, 1);
         }
+
+        [Test]
+        public void Calculator_WhenMultipleAValue_IsFailed() {
+
+            //Arange
+            mockResult.SetupProperty(result => result.Result, 2);
+            mockResult.Setup(value => value.Result).Throws(new NullReferenceException());
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act            
+            //Assert
+            Assert.Throws<NullReferenceException>(() => calculator.Mult(2));
+        }
+
+        [Test]
+        public void Calculator_WhenMultipleAValue_IsSucceed() {
+
+            //Arange
+            mockResult.SetupProperty(result => result.Result, 2);
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act            
+            calculator.Mult(2);
+
+            //Assert
+            Assert.AreEqual(mockResultObject.Result, 4);
+        }
     }
 }

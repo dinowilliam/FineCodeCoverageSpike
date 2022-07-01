@@ -39,7 +39,14 @@ namespace FineCodeCoverageSpikeLibrary {
         }
 
         public int Mult(int Value) {
-            throw new NotImplementedException();
+            try {
+                _result.Result = _result.Result * Value;
+            }
+            catch (Exception ex) {
+                throw ex;
+            }
+
+            return _result.Result;
         }
 
         public int Sub(int Value) {
