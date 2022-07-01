@@ -1,19 +1,25 @@
 ﻿using System;
 
 namespace FineCodeCoverageSpikeLibrary {
-    
+
     using FineCodeCoverageSpikeLibrary.Contracts;
 
-    public class Calculator: ICalculator
-    {
+    public class Calculator : ICalculator {
         IResult _result;
 
-        public Calculator(IResult result) { 
+        public Calculator(IResult result) {
             _result = result;
         }
 
         public int Add(int Value) {
-            _result.Result = _result.Result + Value;
+
+            try {
+                _result.Result = _result.Result + Value;
+            }
+            catch (Exception ex) {
+                throw ex;
+            }
+
             return _result.Result;
         }
 
@@ -26,7 +32,14 @@ namespace FineCodeCoverageSpikeLibrary {
         }
 
         public int Sub(int Value) {
-            throw new NotImplementedException();
+            try {
+                _result.Result = _result.Result - Value;
+            }
+            catch (Exception ex) {
+                throw ex;
+            }
+
+            return _result.Result;
         }
     }
 }

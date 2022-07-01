@@ -21,7 +21,7 @@ namespace FineCodeCoverageSpikeTest {
         public void Calculator_WhenAddZero_IsSucceed() {
 
             //Arange
-            mockResult.Setup(value => value.Result).Returns(0);
+            mockResult.SetupProperty(result => result.Result, 0);
             var mockResultObject = mockResult.Object;
             var calculator = new Calculator(mockResultObject);
 
@@ -49,7 +49,7 @@ namespace FineCodeCoverageSpikeTest {
         public void Calculator_WhenAddAValue_IsSucceed() {
 
             //Arange
-            mockResult.Setup(value => value.Result).Returns(3);
+            mockResult.SetupProperty(result => result.Result, 0);
             var mockResultObject = mockResult.Object;
             var calculator = new Calculator(mockResultObject);
 
@@ -71,6 +71,78 @@ namespace FineCodeCoverageSpikeTest {
             //Act            
             //Assert
             Assert.Throws<NullReferenceException>(() => calculator.Add(3));
+        }
+
+        [Test]
+        public void Calculator_WhenSubtractZero_IsSucceed() {
+
+            //Arange            
+            mockResult.SetupProperty(result => result.Result, 1);
+            var mockResultObject = mockResult.Object;            
+            var calculator = new Calculator(mockResultObject);
+
+            //Act
+            calculator.Sub(1);
+
+            //Assert
+            Assert.AreEqual(mockResultObject.Result, 0);
+        }
+
+        [Test]
+        public void Calculator_WhenSubtractZero_IsFailed() {
+
+            //Arange
+            mockResult.Setup(value => value.Result).Throws(new NullReferenceException());
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act            
+            //Assert
+            Assert.Throws<NullReferenceException>(() => calculator.Sub(0));
+        }
+
+        [Test]
+        public void Calculator_WhenSubtractAValue_IsSucceed() {
+
+            //Arange            
+            mockResult.SetupProperty(result => result.Result, 10);
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act
+            calculator.Sub(5);
+
+            //Assert
+            Assert.AreEqual(mockResultObject.Result, 5);
+        }
+
+        [Test]
+        public void Calculator_WhenSubtractAValueFromZero_IsFailed() {
+
+            //Arange
+            mockResult.SetupProperty(result => result.Result, 0);
+            mockResult.Setup(value => value.Result).Throws(new NullReferenceException());
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act            
+            //Assert
+            Assert.Throws<NullReferenceException>(() => calculator.Sub(5));
+        }
+
+        [Test]
+        public void Calculator_WhenSubtractAValueFromZero_IsSucceed() {
+
+            //Arange
+            mockResult.SetupProperty(result => result.Result, 0);
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act
+            calculator.Sub(5);
+
+            //Assert
+            Assert.AreEqual(mockResultObject.Result, -5);
         }
     }
 }
