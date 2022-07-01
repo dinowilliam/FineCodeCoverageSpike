@@ -24,7 +24,18 @@ namespace FineCodeCoverageSpikeLibrary {
         }
 
         public int Div(int Value) {
-            throw new NotImplementedException();
+
+            try {
+                _result.Result = _result.Result / Value;
+            }
+            catch (DivideByZeroException dbzex) {
+                throw dbzex;
+            }
+            catch (Exception ex) {
+                throw ex;
+            }
+
+            return _result.Result;
         }
 
         public int Mult(int Value) {
@@ -32,6 +43,7 @@ namespace FineCodeCoverageSpikeLibrary {
         }
 
         public int Sub(int Value) {
+
             try {
                 _result.Result = _result.Result - Value;
             }

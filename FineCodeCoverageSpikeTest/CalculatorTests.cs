@@ -144,5 +144,61 @@ namespace FineCodeCoverageSpikeTest {
             //Assert
             Assert.AreEqual(mockResultObject.Result, -5);
         }
+
+        [Test]
+        public void Calculator_WhenDivideAValueForZero_IsFailed() {
+
+            //Arange
+            mockResult.SetupProperty(result => result.Result, 1);
+            mockResult.Setup(value => value.Result).Throws(new NullReferenceException());
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act            
+            //Assert
+            Assert.Throws<NullReferenceException>(() => calculator.Div(0));
+        }
+
+        [Test]
+        public void Calculator_WhenDivideAValueForZero_IsSucceed() {
+
+            //Arange
+            mockResult.SetupProperty(result => result.Result, 1);
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);            
+            
+            //Act            
+            //Assert
+            Assert.Throws<DivideByZeroException>(() => calculator.Div(0));
+        }
+
+        [Test]
+        public void Calculator_WhenDivideAValue_IsFailed() {
+
+            //Arange
+            mockResult.SetupProperty(result => result.Result, 2);
+            mockResult.Setup(value => value.Result).Throws(new NullReferenceException());
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act            
+            //Assert
+            Assert.Throws<NullReferenceException>(() => calculator.Div(2));
+        }
+
+        [Test]
+        public void Calculator_WhenDivideAValue_IsSucceed() {
+
+            //Arange
+            mockResult.SetupProperty(result => result.Result, 2);
+            var mockResultObject = mockResult.Object;
+            var calculator = new Calculator(mockResultObject);
+
+            //Act            
+            calculator.Div(2);
+
+            //Assert
+            Assert.AreEqual(mockResultObject.Result, 1);
+        }
     }
 }
